@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aklatan Hub</title>
 
-    <link rel="stylesheet" href="./styles.css">
-</head>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
 
-<body class="bg-stone-300">
-    <div class="flex flex-col items-center space-y-[16px] px-54 py-11">
-        <div class="flex flex-col items-center">
-            <img src="./assets/picture/book.svg" alt="book">
-            <img src="./assets/logo/AklatanHub-logo.svg" alt="logo">
+  <body class="bg-stone-300">
+    <div
+      class="flex flex-col shrink-0 items-center space-y-[16px] px-54 py-11 sm:p-[15px]"
+    >
+      <div class="flex flex-col shrink-0 items-center">
+        <img src="./assets/picture/book.svg" alt="book" />
+        <img src="./assets/logo/AklatanHub-logo.svg" alt="logo" />
+      </div>
+      <div class="flex space-x-[6px] text-2xl">
+        <p>Developed by:</p>
+        <div class="flex items-center space-x-[6px]">
+          <i class="fa-brands fa-github" style="color: #000000"></i>
+          <p class="hover:text-red-800">
+            <a href="https://github.com/HMDuran">HMDuran</a>
+          </p>
         </div>
-        <div class="flex space-x-[6px] text-2xl">
-            <p>Developed by:</p>
-            <div class="flex items-center space-x-[6px]">
-                <i class="fa-brands fa-github" style="color: #000000;"></i>
-                <p class="hover:text-red-800"><a href="https://github.com/HMDuran">HMDuran</a></p>
-            </div>
-        </div>
-        <div class="text-3xl text-center leading-10">
-            <p>AklatanHub is an intuitive and user-friendly online library platform designed to empower you on your
-                reading journey. This is developed as part of <a class="hover:text-red-800 italic"
-                    href="https://www.theodinproject.com/lessons/node-path-javascript-library">The Odin Project's Full
-                    Stack JavaScript Path Curriculum</a></p>
-        </div>
-        <div>
-            <button class="btn w-[192px] mt-[10px]" type="button"
-                onclick="window.location.href='./pages/aklatan/aklatan.html'">Get Started</button>
-        </div>
+      </div>
+      <div class="text-3xl text-center leading-10 sm:text-base">
+        <p>
+          AklatanHub is an intuitive and user-friendly online library platform
+          designed to empower you on your reading journey. This is developed as
+          part of
+          <a
+            class="hover:text-red-800 italic"
+            href="https://www.theodinproject.com/lessons/node-path-javascript-library"
+            >The Odin Project's Full Stack JavaScript Path Curriculum</a
+          >
+        </p>
+      </div>
+      <div>
+        <button
+          class="btn w-[192px] mt-[10px]"
+          type="button"
+          onclick="window.location.href='./pages/aklatan/aklatan.html'"
+        >
+          Get Started
+        </button>
+      </div>
     </div>
-
-    <!--Link Script-->
-    <script src=""></script>
-</body>
-
+  </body>
 </html>

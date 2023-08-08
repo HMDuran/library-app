@@ -570,6 +570,10 @@ video {
   width: 192px;
 }
 
+.shrink-0{
+  flex-shrink: 0;
+}
+
 .flex-col{
   flex-direction: column;
 }
@@ -596,8 +600,8 @@ video {
 }
 
 .px-54{
-  padding-left: 222px;
-  padding-right: 222px;
+  padding-left: 220px;
+  padding-right: 220px;
 }
 
 .py-11{
@@ -630,4 +634,23 @@ video {
 .hover\:text-red-800:hover{
   --tw-text-opacity: 1;
   color: rgb(140 28 19 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px){
+  .sm\:p-\[5px\]{
+    padding: 5px;
+  }
+
+  .sm\:p-\[10px\]{
+    padding: 10px;
+  }
+
+  .sm\:p-\[15px\]{
+    padding: 15px;
+  }
+
+  .sm\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }

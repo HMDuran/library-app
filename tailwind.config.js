@@ -20,7 +20,7 @@ module.exports = {
     },
     spacing: {
       '11': '46px',
-      '54': '222px',
+      '54': '220px',
     },
     borderRadius: {
       '20':'20px',
