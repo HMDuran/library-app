@@ -1,0 +1,11 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply bg-red-900 py-[12px] px-[20px] text-2xl font-bold text-zinc-100 rounded-20 hover: text-neutral-950 hover:bg-red-500;
+    }
+}
