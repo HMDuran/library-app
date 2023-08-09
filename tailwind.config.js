@@ -3,6 +3,7 @@ module.exports = {
   content: ["./public/index.html", "./public/pages/aklatan/aklatan.html"],
   theme: {
     colors: {
+      'black': '"#000',
       'neutral': {
         950: '#0A0A0A',
       },
@@ -19,6 +20,7 @@ module.exports = {
       },
     },
     spacing: {
+      '2': '5px',
       '11': '46px',
       '54': '220px',
     },
