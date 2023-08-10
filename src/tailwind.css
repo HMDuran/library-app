@@ -4,8 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        font-family: 'Poppins';
+     }
+
+     body {
+        @apply bg-stone-300
+     }
+}
+
 @layer components {
     .btn {
-        @apply bg-red-900 shadow-lg shadow-neutral-950/40 py-[12px] px-[20px] text-2xl font-bold text-zinc-100 rounded-20 hover:text-neutral-950 hover:bg-red-500;
+        @apply bg-red-900 shadow-lg shadow-neutral-950/40 py-3 px-5 text-2xl font-bold text-zinc-100 rounded-20 hover:text-neutral-950 hover:bg-red-500;
+    }
+
+    .cards {
+        @apply grid grid-cols-2 gap-6 bg-red-500 px-6 py-3 rounded-20 text-zinc-100;
     }
 }
