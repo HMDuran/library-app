@@ -437,7 +437,7 @@ video {
 }
 
 html {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 body{
@@ -548,11 +548,12 @@ body{
 .btn{
   border-radius: 20px;
   --tw-bg-opacity: 1;
-  background-color: rgb(139 28 19 / var(--tw-bg-opacity));
+  background-color: rgb(191 67 66 / var(--tw-bg-opacity));
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+  text-align: center;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
@@ -566,25 +567,33 @@ body{
 }
 
 .btn:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 67 66 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(10 10 10 / var(--tw-text-opacity));
 }
 
 .cards{
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 200px));
   border-radius: 20px;
   --tw-bg-opacity: 1;
   background-color: rgb(191 67 66 / var(--tw-bg-opacity));
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
   --tw-text-opacity: 1;
   color: rgb(242 240 240 / var(--tw-text-opacity));
+}
+
+.number{
+  align-self: center;
+  justify-self: end;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .mt-2{
@@ -619,16 +628,32 @@ body{
   width: 300px;
 }
 
+.w-96{
+  width: 24rem;
+}
+
 .shrink-0{
   flex-shrink: 0;
 }
 
+.grid-cols-1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2{
+  grid-template-columns: repeat(2, minmax(0, 200px));
+}
+
+.grid-cols-2\.5{
+  grid-template-columns: repeat(2, minmax(0, 150px));
+}
+
 .grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 220px));
 }
 
 .grid-rows-7{
-  grid-template-rows: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, auto));
 }
 
 .flex-col{
@@ -647,8 +672,16 @@ body{
   gap: 2.5rem;
 }
 
-.gap-y-1{
-  row-gap: 0.25rem;
+.gap-20{
+  gap: 5rem;
+}
+
+.gap-7{
+  gap: 1.75rem;
+}
+
+.gap-5{
+  gap: 1.25rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]){
@@ -669,6 +702,10 @@ body{
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.self-start{
+  align-self: flex-start;
+}
+
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
@@ -679,8 +716,27 @@ body{
   padding-right: 50px;
 }
 
+.px-20{
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.py-6{
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.pb-2{
+  padding-bottom: 0.5rem;
+}
+
 .text-center{
   text-align: center;
+}
+
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-base{
@@ -693,12 +749,26 @@ body{
   line-height: 1.75rem;
 }
 
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.font-semibold{
+  font-weight: 600;
+}
+
 .italic{
   font-style: italic;
 }
 
 .leading-10{
   line-height: 2.5rem;
+}
+
+.text-red-900{
+  --tw-text-opacity: 1;
+  color: rgb(139 28 19 / var(--tw-text-opacity));
 }
 
 .hover\:text-red-800:hover{

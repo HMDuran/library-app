@@ -8,35 +8,36 @@
   <link rel="stylesheet" href="../../styles.css" />
 </head>
 <body>
-    <div class="grid grid-rows-7 gap-y-1 justify-center items-center">
-      <div class="header">
-        <img src="../../assets/logo/AklatanHub-logo.svg" alt="logo">
+    <div class="grid grid-rows-7 grid-cols-1 gap-5 justify-center items-center px-20  py-6">
+      <div class="grid justify-center">
+        <img class="w-96" src="../../assets/logo/AklatanHub-logo.svg" alt="logo">
       </div>
-      <div class="grid grid-cols-3 gap-10">
+      <div class="grid grid-cols-3 gap-20 items-center justify-center">
         <div class="cards">
-          <p class="title">Books <br>Counts</p>
+          <p>Books <br>Counts</p>
           <p class="number">0</p>
         </div>
         <div class="cards">
-          <p class="title">Books <br>Read</p>
+          <p>Books <br>Read</p>
           <p class="number">0</p>
         </div>
         <div class="cards">
-          <p class="title">Books <br>Not Read</p>
+          <p>Books <br>Not Read</p>
           <p class="number">0</p>
         </div>
       </div>
-      <div class="books">
-        <p>Books</p>
+      <div class="self-start">
+        <p class="text-red-900 font-semibold text-2xl pb-2">Books</p>
         <hr>
       </div>
-      <div>
-        <div class="add-books-btn">
+      <div class="grid grid-cols-2.5 gap-10">
+        <div class="btn text-xl">
           <button>Add Books</button>
         </div>
-        <div class="sortby-btn">
+        <div class="btn text-xl">
           <button>Sort By</button>
         </div>
+        
       </div>
     </div>
 </body>

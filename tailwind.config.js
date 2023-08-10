@@ -4,23 +4,23 @@ module.exports = {
   theme: {
     colors: {
       'neutral': {
-        950: '#0A0A0A',
+        950: '#0A0A0A'
       },
       'zinc': {
-        100: '#F2F0F0',
+        100: '#F2F0F0'
       },
       'stone': {
-        300: '#E7D7C1',
+        300: '#E7D7C1'
       },
       'red': {
         500: '#BF4342',
         800: '#8C1C13',
-        900: '#8B1C13',
+        900: '#8B1C13'
       },
     },
     borderRadius: {
       '20': '20px',
-      '30': '30px',
+      '30': '30px'
     },
     extend: {
       spacing: {
@@ -31,11 +31,16 @@ module.exports = {
         '42'  : '170px',
         '54'  : '220px',
         '78'  : '300px',
-        '100' : '400px',
+        '100' : '400px'
       },
       gridTemplateRows: {
-       '7': 'repeat(7, minmax(0, 1fr))' 
-      }
+       '7': 'repeat(7, minmax(0, auto))' 
+      },
+      gridTemplateColumns: {
+        '2'  : 'repeat(2, minmax(0, 200px))',
+        '2.5': 'repeat(2, minmax(0, 150px))',
+        '3'  : 'repeat(3, minmax(0, 220px))'
+      },
     },
   },
   plugins: [],
