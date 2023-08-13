@@ -16,15 +16,11 @@
 
 @layer components {
   .btn {
-    @apply bg-red-500 shadow-lg shadow-neutral-950/40 py-3 px-5 text-2xl font-bold text-zinc-100 rounded-20 hover:text-neutral-950 text-center;
-  }
-
-  .add-sort-btn {
-    @apply flex space-x-3 justify-center items-center;
+    @apply bg-red-500 shadow-lg shadow-neutral-950/40 py-3 px-5 text-2xl font-bold text-zinc-100 rounded-md hover:text-neutral-950 text-center;
   }
 
   .cards {
-    @apply grid grid-cols-2 bg-red-500 px-6 py-2 rounded-20 text-zinc-100 font-bold leading-tight text-base;
+    @apply grid grid-cols-2 bg-red-500 px-6 py-2 rounded-md text-zinc-100 font-bold leading-tight text-base;
   }
 
   .number {
@@ -33,5 +29,17 @@
 
   th {
     @apply py-2 px-3  font-semibold;
+  }
+
+  .form-inputs {
+    @apply pb-4;
+  }
+
+  label {
+    @apply text-red-900 text-xl font-semibold pb-5;
+  }
+
+  input {
+    @apply px-3 py-2 text-sm;
   }
 }

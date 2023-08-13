@@ -38,13 +38,66 @@
     </div>
     <!--Buttons-->
     <div class="grid grid-cols-2.5 gap-10 pb-4">
-      <div class="btn add-sort-btn">
-        <i class="fa-solid fa-plus text-base"></i>
-        <button id="add-book-btn" class="text-base" type="button">Add Books</button>
+      <div class="btn flex justify-center">
+        <button id="add-book-btn" class="text-base" type="button">
+          <i class="fa-solid fa-plus pr-1"></i>
+          Add Book
+        </button>
       </div>
-      <div class="btn add-sort-btn ">
-        <i class="fa-solid fa-sort text-base"></i>
-        <button id="sort-btn" class="text-base" type="button">Sort By</button>
+      <div class="btn flex justify-center">
+        <button id="sort-btn" class="text-base" type="button">
+          <i class="fa-solid fa-sort pr-1"></i>
+          Sort By
+        </button>
+      </div>
+    </div>
+    <!--Modal-->
+    <div id="modal" class="hidden fixed inset-0 flex justify-center items-center bg-stone-300 bg-opacity-50">
+      <div class="bg-stone-300 border border-neutral-950 pt-3 pb-10 flex flex-col rounded-3xl drop-shadow-2xl">
+        <button id="close-modal" class="self-end" type="button">
+          <i class="fa-solid fa-xmark text-lg text-red-500 font-semibold hover:text-red-900 pr-4"></i>
+        </button>
+        <div class="flex justify-center px-12">
+          <p class="text-red-900 text-3xl font-bold pt-2">
+            <i class="fa-solid fa-book-open pr-2"></i>
+            Book Information
+          </p>
+        </div>
+        <!--Form-->
+        <div class="pt-5 px-12">
+          <form id="book-form">
+            <!--Title-->
+            <div class="form-inputs">
+              <label for="title">Title</label><br>
+              <input type="text" id="title" class="rounded-md w-78" name="title"><br>
+            </div>
+
+            <!--Author-->
+            <div class="form-inputs">
+              <label for="author">Author</label><br>
+              <input type="text" id="author" class="rounded-md w-78" name="author"><br>
+            </div>
+
+            <div class="flex justify-evenly space-x-8">
+              <!--Pages-->
+              <div class="form-inputs flex-1">
+                <label for="pages">Pages</label><br>
+                <input type="text" id="pages" class="rounded-md w-32" name="pages"><br>
+              </div>
+              <!--Status-->
+              <div class="form-inputs flex-1 pb-8">
+                <label for="Status">Status</label><br>
+                <select id="status" class="rounded-md py-2 w-32 text-sm font-semibold" name="status" required>
+                  <option value="" disabled selected>Select status</option>
+                  <option value="Read" class="hover:bg-red-500">Read</option>
+                  <option value="Not Read" class="hover:bg-red-500">Not Read</option>
+                </select>
+              </div>
+            </div>
+            <!--Submit Button-->
+            <button class="btn text-lg w-78" type="submit">Add Book</button>
+          </form>
+        </div>
       </div>
     </div>
     <!--Table-->

@@ -18,10 +18,6 @@ module.exports = {
         900: '#8B1C13'
       },
     },
-    borderRadius: {
-      '20': '20px',
-      '30': '30px'
-    },
     extend: {
       spacing: {
         '1.4' : '5px',
