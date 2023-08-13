@@ -46,8 +46,8 @@
       </div>
       <div class="btn flex justify-center">
         <button id="sort-btn" class="text-base" type="button">
-          <i class="fa-solid fa-sort pr-1"></i>
-          Sort By
+          <i class="fa-solid fa-arrow-up-a-z pr-1"></i>
+          Sort
         </button>
       </div>
     </div>
@@ -69,20 +69,20 @@
             <!--Title-->
             <div class="form-inputs">
               <label for="title">Title</label><br>
-              <input type="text" id="title" class="rounded-md w-78" name="title"><br>
+              <input type="text" id="title" class="rounded-md w-78" name="title" required><br>
             </div>
 
             <!--Author-->
             <div class="form-inputs">
               <label for="author">Author</label><br>
-              <input type="text" id="author" class="rounded-md w-78" name="author"><br>
+              <input type="text" id="author" class="rounded-md w-78" name="author" required><br>
             </div>
 
             <div class="flex justify-evenly space-x-8">
               <!--Pages-->
               <div class="form-inputs flex-1">
                 <label for="pages">Pages</label><br>
-                <input type="text" id="pages" class="rounded-md w-32" name="pages"><br>
+                <input type="number" id="pages" class="rounded-md w-32" name="pages" required><br>
               </div>
               <!--Status-->
               <div class="form-inputs flex-1 pb-8">
@@ -95,14 +95,14 @@
               </div>
             </div>
             <!--Submit Button-->
-            <button class="btn text-lg w-78" type="submit">Add Book</button>
+            <button id="submit-btn" class="btn text-lg w-78" type="submit">Add Book</button>
           </form>
         </div>
       </div>
     </div>
     <!--Table-->
     <div>
-      <table class="w-full border-collapse">
+      <table id="book-table" class="w-full border-collapse">
         <thead class="bg-red-500 text-zinc-100 text-left font-semibold">
           <tr>
             <th class="w-96">Title</th>
