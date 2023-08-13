@@ -1,44 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aklatan Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aklatan Hub</title>
 
   <link rel="stylesheet" href="../../styles.css" />
 </head>
+
 <body>
-    <div class="grid grid-rows-7 grid-cols-1 gap-5 justify-center items-center px-20  py-6">
-      <div class="grid justify-center">
-        <img class="w-96" src="../../assets/logo/AklatanHub-logo.svg" alt="logo">
+  <!--Container-->
+  <div class="grid grid-rows-6 grid-cols-1 gap-5 justify-center items-center px-20 py-6">
+    <!--Logo-->
+    <div class="grid justify-center">
+      <img class="w-80" src="../../assets/logo/AklatanHub-logo.svg" alt="logo" />
+    </div>
+    <!--Cards-->
+    <div class="grid grid-cols-3 gap-20 items-center justify-center">
+      <div class="cards">
+        <p>Books <br />Counts</p>
+        <p class="number">0</p>
       </div>
-      <div class="grid grid-cols-3 gap-20 items-center justify-center">
-        <div class="cards">
-          <p>Books <br>Counts</p>
-          <p class="number">0</p>
-        </div>
-        <div class="cards">
-          <p>Books <br>Read</p>
-          <p class="number">0</p>
-        </div>
-        <div class="cards">
-          <p>Books <br>Not Read</p>
-          <p class="number">0</p>
-        </div>
+      <div class="cards">
+        <p>Books <br />Read</p>
+        <p class="number">0</p>
       </div>
-      <div class="self-start">
-        <p class="text-red-900 font-semibold text-2xl pb-2">Books</p>
-        <hr>
-      </div>
-      <div class="grid grid-cols-2.5 gap-10">
-        <div class="btn text-xl">
-          <button>Add Books</button>
-        </div>
-        <div class="btn text-xl">
-          <button>Sort By</button>
-        </div>
-        
+      <div class="cards">
+        <p>Books <br />Not Read</p>
+        <p class="number">0</p>
       </div>
     </div>
+    <!--Books-->
+    <div class="self-start">
+      <p class="text-red-900 font-semibold text-2xl pb-2">Books</p>
+      <hr />
+    </div>
+    <!--Buttons-->
+    <div class="grid grid-cols-2.5 gap-10 pb-4">
+      <div class="btn add-sort-btn">
+        <i class="fa-solid fa-plus text-base"></i>
+        <button id="add-book-btn" class="text-base" type="button">Add Books</button>
+      </div>
+      <div class="btn add-sort-btn ">
+        <i class="fa-solid fa-sort text-base"></i>
+        <button id="sort-btn" class="text-base" type="button">Sort By</button>
+      </div>
+    </div>
+    <!--Table-->
+    <div>
+      <table class="w-full border-collapse">
+        <thead class="bg-red-500 text-zinc-100 text-left font-semibold">
+          <tr>
+            <th class="w-96">Title</th>
+            <th class="w-56">Author</th>
+            <th class="w-20">Pages</th>
+            <th class="w-28">Status</th>
+            <th class="w-28">Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Table rows will be added here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="../../js/script.js"></script>
 </body>
+
 </html>
