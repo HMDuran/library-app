@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./public/index.html", "./public/pages/aklatan/aklatan.html"],
+  content: ["./public/index.html"],
   theme: {
     colors: {
       'neutral': {
@@ -30,10 +30,12 @@ module.exports = {
         '100' : '400px'
       },
       gridTemplateRows: {
-       '6': 'repeat(6, minmax(0, auto))' 
+       '3': 'repeat(3, minmax(0, auto))',
+       '4': 'repeat(4, minmax(0, auto))' 
       },
       gridTemplateColumns: {
-        '2'  : 'repeat(2, minmax(0, 200px))',
+        '2'  : 'repeat(2, minmax(0, auto))',
+        '2.2': 'repeat(2, minmax(0, 108px))',
         '2.5': 'repeat(2, minmax(0, 150px))',
         '3'  : 'repeat(3, minmax(0, 220px))'
       },
