@@ -33,6 +33,11 @@ let editedRowIndex = -1;
 // Track the current sorting state
 let isSorted = JSON.parse(localStorage.getItem('isSorted')) || false;
 
+// Initialize book counts
+let totalBooksCount = 0;
+let booksReadCount = 0;
+let booksNotReadCount = 0;
+
 // Open the modal form
 function openModal() {
     modal.classList.remove('hidden');
@@ -143,6 +148,8 @@ function saveToLocalStorage(book) {
     const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
     existingBooks.push(book);
     localStorage.setItem('books', JSON.stringify(existingBooks));
+
+    updateCounts();
 }
 
 // Function to update local storage after editing a book
@@ -158,6 +165,7 @@ function updateLocalStorage() {
     });
 
     localStorage.setItem('books', JSON.stringify(updatedBooks));
+    updateCounts();
 }
 
 // Function to delete a book from local storage
@@ -168,7 +176,21 @@ function deleteFromLocalStorage(row) {
     existingBooks.splice(rowIndex, 1);
 
     localStorage.setItem('books', JSON.stringify(existingBooks));
+    updateCounts();
 }
+
+// Function to recalculate and update book counts
+function updateCounts() {
+    totalBooksCount = bookTable.rows.length - 1;
+    booksReadCount = Array.from(bookTable.rows).slice(1).filter(row => row.cells[3].textContent === 'Read').length;
+    booksNotReadCount = totalBooksCount - booksReadCount;
+
+    // Update the HTML elements displaying the counts
+    document.querySelector('.cards .number').textContent       = totalBooksCount;
+    document.querySelectorAll('.cards .number')[1].textContent = booksReadCount;
+    document.querySelectorAll('.cards .number')[2].textContent = booksNotReadCount;
+}
+
 
 // Load data from local storage when the page loads
 function loadBooksFromLocalStorage() {
@@ -231,6 +253,9 @@ function loadAndSortData() {
         return titleA.localeCompare(titleB);
     });
 }
+
+// Initialize the counts and display them
+updateCounts();
 
 // Function to populate table with data
 function populateTable() {
