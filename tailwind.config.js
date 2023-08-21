@@ -7,7 +7,8 @@ module.exports = {
         950: '#0A0A0A'
       },
       'zinc': {
-        100: '#F2F0F0'
+        100: '#F2F0F0',
+        200: '#CCCCCC'
       },
       'stone': {
         300: '#E7D7C1'
@@ -31,13 +32,14 @@ module.exports = {
       },
       gridTemplateRows: {
        '3': 'repeat(3, minmax(0, auto))',
-       '4': 'repeat(4, minmax(0, auto))' 
+       '5': 'repeat(5, minmax(0, auto))' 
       },
       gridTemplateColumns: {
         '2'  : 'repeat(2, minmax(0, auto))',
         '2.2': 'repeat(2, minmax(0, 108px))',
         '2.5': 'repeat(2, minmax(0, 150px))',
-        '3'  : 'repeat(3, minmax(0, 220px))'
+        '3'  : 'repeat(3, minmax(0, 220px))',
+        '3.2': 'repeat(3, minmax(0, 140px))'
       },
     },
   },

@@ -11,7 +11,7 @@
 
 <body>
   <!--Container-->
-  <div class="grid grid-rows-4 grid-cols-1 gap-3 justify-center items-center px-20 py-6">
+  <div class="grid grid-rows-5 grid-cols-1 gap-3 justify-center items-center px-20 py-6">
     <!--Header-->
     <div class="grid grid-cols-2 gap-24">
       <div>
@@ -143,6 +143,18 @@
           <!-- Table rows will be added here dynamically -->
         </tbody>
       </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="grid grid-cols-2.5 gap-4 justify-end">
+      <button id="prev-btn" class="btn rounded-l-md" type="button">
+        <i class="fa-solid fa-chevron-left pr-2 text-base"></i>
+        Previous
+      </button>
+      <button id="next-btn" class="btn rounded-r-md" type="button"> 
+        Next
+        <i class="fa-solid fa-chevron-right pl-2 text-base"></i>
+      </button>
     </div>
   </div>
   <script src="./js/script.js"></script>

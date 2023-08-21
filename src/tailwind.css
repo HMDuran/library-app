@@ -23,12 +23,16 @@
     @apply pl-2;
   }
 
-  .flex-display {
-    @apply flex space-x-1.5 text-base;
-  }
-
   .btn {
     @apply bg-red-500 shadow-md shadow-neutral-950/40 py-3 px-5 text-2xl font-bold text-zinc-100 rounded-md hover:text-neutral-950 text-center;
+  }
+
+  #prev-btn, #next-btn {
+    @apply flex justify-center text-base;
+  }
+
+  .flex-display {
+    @apply flex space-x-1.5 text-base;
   }
 
   .cards {
@@ -40,11 +44,11 @@
   }
 
   th, td {
-    @apply py-2 px-3  font-semibold border border-solid border-red-900;
+    @apply py-2 px-3  font-semibold border border-solid border-zinc-100;
   }
 
   td {
-    @apply bg-stone-300 text-neutral-950 border border-solid border-neutral-950; 
+    @apply bg-zinc-100 text-neutral-950 border border-solid border-zinc-200; 
   }
 
   .form-inputs {
