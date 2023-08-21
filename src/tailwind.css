@@ -15,6 +15,14 @@
 }
 
 @layer components {
+  .edit-btn, .remove-btn {
+    @apply hover:underline hover:text-red-800;
+  }
+
+  .remove-btn {
+    @apply pl-2;
+  }
+
   .flex-display {
     @apply flex space-x-1.5 text-base;
   }
