@@ -751,18 +751,6 @@ input{
   grid-template-columns: repeat(2, minmax(0, 150px));
 }
 
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 220px));
-}
-
-.grid-cols-3\.2{
-  grid-template-columns: repeat(3, minmax(0, 140px));
-}
-
-.grid-cols-2\.2{
-  grid-template-columns: repeat(2, minmax(0, 108px));
-}
-
 .grid-rows-3{
   grid-template-rows: repeat(3, minmax(0, auto));
 }
@@ -856,11 +844,6 @@ input{
 .bg-stone-300{
   --tw-bg-opacity: 1;
   background-color: rgb(231 215 193 / var(--tw-bg-opacity));
-}
-
-.bg-zinc-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(242 240 240 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50{
@@ -989,17 +972,6 @@ input{
 .text-zinc-100{
   --tw-text-opacity: 1;
   color: rgb(242 240 240 / var(--tw-text-opacity));
-}
-
-.shadow-md{
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-neutral-950\/40{
-  --tw-shadow-color: rgb(10 10 10 / 0.4);
-  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .drop-shadow-2xl{
