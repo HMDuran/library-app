@@ -24,6 +24,10 @@ const authorInput    = document.getElementById('author');
 const pagesInput     = document.getElementById('pages');
 const statusSelected = document.getElementById('status');
 
+//Pagination 
+const prevBtn        = document.getElementById('prev-btn');
+const nextBtn        = document.getElementById('next-btn');
+
 // Table
 const bookTable      = document.getElementById('book-table');
 
@@ -37,6 +41,10 @@ let isSorted = JSON.parse(localStorage.getItem('isSorted')) || false;
 let totalBooksCount = 0;
 let booksReadCount = 0;
 let booksNotReadCount = 0;
+
+// Track current page number
+let currentPage = 1;
+const itemsPerPage = 10;
 
 // Open the modal form
 function openModal() {
@@ -150,6 +158,12 @@ function saveToLocalStorage(book) {
     localStorage.setItem('books', JSON.stringify(existingBooks));
 
     updateCounts();
+    
+    // Check if the current page needs to be updated
+    if (totalBooksCount > currentPage * itemsPerPage) {
+        currentPage++;
+        populateTable();
+    }
 }
 
 // Function to update local storage after editing a book
@@ -164,8 +178,19 @@ function updateLocalStorage() {
         };
     });
 
+    // Update the edited book's data directly in the array
+    if (editedRowIndex !== -1) {
+        updatedBooks[editedRowIndex - 1] = {
+            title:  rows[editedRowIndex - 1].cells[0].textContent,
+            author: rows[editedRowIndex - 1].cells[1].textContent,
+            pages:  rows[editedRowIndex - 1].cells[2].textContent,
+            read:   rows[editedRowIndex - 1].cells[3].textContent
+        };
+    }
+
     localStorage.setItem('books', JSON.stringify(updatedBooks));
     updateCounts();
+    populateTable();
 }
 
 // Function to delete a book from local storage
@@ -177,12 +202,15 @@ function deleteFromLocalStorage(row) {
 
     localStorage.setItem('books', JSON.stringify(existingBooks));
     updateCounts();
+    populateTable(existingBooks);
 }
 
 // Function to recalculate and update book counts
 function updateCounts() {
-    totalBooksCount = bookTable.rows.length - 1;
-    booksReadCount = Array.from(bookTable.rows).slice(1).filter(row => row.cells[3].textContent === 'Read').length;
+    const data = JSON.parse(localStorage.getItem('books')) || [];
+
+    totalBooksCount = data.length;
+    booksReadCount = data.filter(book => book.read === 'Read').length;
     booksNotReadCount = totalBooksCount - booksReadCount;
 
     // Update the HTML elements displaying the counts
@@ -236,6 +264,18 @@ sortBooks.addEventListener('click', function() {
     populateTable();
 });
 
+nextBtn.addEventListener('click', function () {
+    currentPage++;
+    populateTable();
+});
+
+prevBtn.addEventListener('click', function () {
+    if (currentPage > 1) {
+        currentPage--;
+        populateTable();
+    }
+});
+
 // Function to toggle sorting state
 function toggleSort() {
     isSorted = !isSorted; 
@@ -274,7 +314,11 @@ function populateTable() {
         });
     }
 
-    data.forEach(book => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const booksToDisplay = data.slice(startIndex, endIndex);
+
+    booksToDisplay.forEach(book => {
         const newRow      = bookTable.insertRow();
         const titleCell   = newRow.insertCell(0);
         const authorCell  = newRow.insertCell(1);
