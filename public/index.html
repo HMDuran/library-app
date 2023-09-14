@@ -65,19 +65,29 @@
       <p class="text-red-900 font-semibold text-4xl pb-2">Books</p>
       <hr />
     </div>
-    <!--Buttons-->
-    <div class="grid grid-cols-2.5 gap-10 pb-4">
-      <div class="btn flex justify-center">
-        <button id="add-book-btn" class="text-base" type="button">
-          <i class="fa-solid fa-plus pr-1"></i>
-          Add Book
-        </button>
+    <!--Search & buttons-->
+    <div class="flex justify-between">
+      <!--Search-->
+      <div>
+        <form class="bg-zinc-100 p-1">
+          <i class="fa-solid fa-magnifying-glass text-red-500 pl-2"></i>
+          <input type="text" id="search" class="bg-zinc-100 pl-1" placeholder="Search..." />
+        </form>
       </div>
-      <div class="btn flex justify-center">
-        <button id="sort-btn" class="text-base" type="button">
-          <i class="fa-solid fa-arrow-up-a-z pr-1"></i>
-          Sort
-        </button>
+      <!--Buttons-->
+      <div class="grid grid-cols-2.5 gap-10 pb-4">
+        <div class="btn flex justify-center">
+          <button id="add-book-btn" class="text-base" type="button">
+            <i class="fa-solid fa-plus pr-1"></i>
+            Add Book
+          </button>
+        </div>
+        <div class="btn flex justify-center">
+          <button id="sort-btn" class="text-base" type="button">
+            <i class="fa-solid fa-arrow-up-a-z pr-1"></i>
+            Sort
+          </button>
+        </div>
       </div>
     </div>
     <!--Modal-->
@@ -146,7 +156,7 @@
     </div>
 
     <!-- Pagination Controls -->
-    <div id="pagination" class="grid grid-cols-2.5 gap-4 justify-end">
+    <div id="pagination" class="grid grid-cols-2.3 gap-4 justify-end">
       <button id="prev-btn" class="btn rounded-l-md" type="button">
         <i class="fa-solid fa-chevron-left pr-2 text-base"></i>
         Previous
