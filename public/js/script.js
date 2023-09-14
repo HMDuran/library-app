@@ -21,7 +21,10 @@ const pagesInput     = document.getElementById('pages');
 const statusSelected = document.getElementById('status');
 const bookTable      = document.getElementById('book-table');
 const searchInput    = document.getElementById('search');
- 
+const pagination     = document.getElementById('pagination');
+const prevBtn        = document.getElementById('prev-btn');
+const nextBtn        = document.getElementById('next-btn');
+
 // State variables
 let editedRowIndex = -1;
 let isSorted       = JSON.parse(localStorage.getItem('isSorted')) || false;
@@ -30,6 +33,9 @@ let isSorted       = JSON.parse(localStorage.getItem('isSorted')) || false;
 let totalBooksCount   = 0;
 let booksReadCount    = 0;
 let booksNotReadCount = 0;
+
+// Page number
+let currentPage = 1;
 
 // Open the modal form
 function openModal() {
@@ -76,6 +82,13 @@ modal.querySelector('form').addEventListener('submit', function(event) {
         
         saveToLocalStorage(newBook);
         closeModal();
+
+        const booksPerPage = 10;
+        const newBookPage = Math.ceil(totalBooksCount / booksPerPage);
+
+        localStorage.setItem('currentPage', newBookPage);
+        loadAndPopulateBooks();
+        displayBooksForPage(newBookPage);
     }
 });
 
@@ -180,6 +193,8 @@ function updateCounts() {
     document.querySelector('.cards .number').textContent       = totalBooksCount;
     document.querySelectorAll('.cards .number')[1].textContent = booksReadCount;
     document.querySelectorAll('.cards .number')[2].textContent = booksNotReadCount;
+
+    updatePaginationVisibility();
 }
 
 // Load data from local storage when the page loads
@@ -201,7 +216,7 @@ function loadAndPopulateBooks() {
         return (
             title.includes(searchTerm) ||
             author.includes(searchTerm) ||
-             ages.includes(searchTerm) ||
+            pages.includes(searchTerm) ||
             status.includes(searchTerm)
         );
     });
@@ -209,10 +224,29 @@ function loadAndPopulateBooks() {
     populateTable(filteredBooks);
     updateCounts();
     initializeSearchFilter();
+    updatePaginationVisibility();
+
+    const storedCurrentPage = localStorage.getItem('currentPage');
+    if (storedCurrentPage) {
+        currentPage = parseInt(storedCurrentPage);
+    }
+}
+
+// Function to update pagination visibility
+function updatePaginationVisibility() {
+    if (totalBooksCount > 10) {
+        pagination.style.display = 'grid';
+        displayBooksForPage(currentPage);
+    } else {
+        pagination.style.display = 'none';
+    }
 }
 
 // Load and populate books from local storage when the page loads
 loadAndPopulateBooks();
+
+// Initial visibility check
+updatePaginationVisibility();
 
 // Event listener for the "Sort" button
 sortBooks.addEventListener('click', function() {
@@ -287,4 +321,41 @@ function performSearch(searchTerm) {
     if (!searchTerm) {
         loadAndPopulateBooks();
     }
+
+    updatePaginationVisibility();
+}
+
+// Event listeners for the pagination previous button
+prevBtn.addEventListener('click', function () {
+    if (currentPage > 1) {
+        currentPage--;
+        displayBooksForPage(currentPage);
+    }
+    localStorage.setItem('currentPage', currentPage);
+});
+
+// Event listeners for the pagination next button
+nextBtn.addEventListener('click', function () {
+    const totalPages = Math.ceil(totalBooksCount / 10);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayBooksForPage(currentPage);
+    }
+    localStorage.setItem('currentPage', currentPage);
+});
+
+// Function to display books for a given page
+function displayBooksForPage(page) {
+    const rows = Array.from(bookTable.rows).slice(1);
+    const booksPerPage = 10;
+    const startIndex = (page - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+
+    rows.forEach((row, index) => {
+        if (index >= startIndex && index < endIndex) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
 }

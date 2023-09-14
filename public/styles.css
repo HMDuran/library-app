@@ -679,12 +679,20 @@ input{
   line-height: 1.25rem;
 }
 
+.visible{
+  visibility: visible;
+}
+
 .fixed{
   position: fixed;
 }
 
 .inset-0{
   inset: 0px;
+}
+
+.block{
+  display: block;
 }
 
 .flex{
