@@ -37,6 +37,7 @@ module.exports = {
       gridTemplateColumns: {
         '2'  : 'repeat(2, minmax(0, auto))',
         '2.2': 'repeat(2, minmax(0, 108px))',
+        '2.3': 'repeat(2, minmax(0, 120px))',
         '2.5': 'repeat(2, minmax(0, 150px))',
         '3'  : 'repeat(3, minmax(0, 220px))',
         '3.2': 'repeat(3, minmax(0, 140px))'
