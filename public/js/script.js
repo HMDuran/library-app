@@ -20,15 +20,15 @@ const authorInput    = document.getElementById('author');
 const pagesInput     = document.getElementById('pages');
 const statusSelected = document.getElementById('status');
 const bookTable      = document.getElementById('book-table');
-
-
+ 
+// State variables
 let editedRowIndex = -1;
-let isSorted = JSON.parse(localStorage.getItem('isSorted')) || false;
-let totalBooksCount = 0;
-let booksReadCount = 0;
+let isSorted       = JSON.parse(localStorage.getItem('isSorted')) || false;
+
+// Book counts
+let totalBooksCount   = 0;
+let booksReadCount    = 0;
 let booksNotReadCount = 0;
-const itemsPerPage = 10;
-let currentPage = 1;
 
 // Open the modal form
 function openModal() {
@@ -44,12 +44,12 @@ function closeModal() {
 // Handle form submission within the modal
 modal.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault();
-     // Retrieve input values from the form
+    
     const title  = titleInput.value;
     const author = authorInput.value;
     const pages  = pagesInput.value;
     const status = statusSelected.value;
-    
+
     if (editedRowIndex !== -1) {
         const newRow = bookTable.rows[editedRowIndex];
         const cells  = newRow.cells;
@@ -63,19 +63,15 @@ modal.querySelector('form').addEventListener('submit', function(event) {
         closeModal();
     } else {
         const newBook = new Book(title, author, pages, status);
-       
-        const newRow      = bookTable.insertRow();
-        const titleCell   = newRow.insertCell(0);
-        const authorCell  = newRow.insertCell(1);
-        const pagesCell   = newRow.insertCell(2);
-        const statusCell  = newRow.insertCell(3);
+        const newRow = bookTable.insertRow();
+    
+        for (let i = 0; i < 4; i++) {
+            const cell = newRow.insertCell(i);
+            cell.textContent = i === 0 ? newBook.title : i === 1 ? newBook.author : i === 2 ? newBook.pages : newBook.read;
+        }
+        
         const actionsCell = newRow.insertCell(4);
-       
-        titleCell.textContent  = newBook.title;
-        authorCell.textContent = newBook.author;
-        pagesCell.textContent  = newBook.pages;
-        statusCell.textContent = newBook.read;
-        actionsCell.innerHTML  = '<button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button>';
+        actionsCell.innerHTML = '<button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button>';
         
         saveToLocalStorage(newBook);
         closeModal();
@@ -94,15 +90,15 @@ closeBtn.addEventListener('click', closeModal)
 
 // Event listener to handle book editing/removal
 bookTable.addEventListener('click', function(event) {
-    const target = event.target;
+    const { target } = event;
     const row    = target.closest('tr');
-
+    
     if (target.classList.contains('edit-btn')) {
         openModal();
         editedRowIndex = row.rowIndex;
         populateFormWithRowData(row);
     } else if (target.classList.contains('remove-btn')) {
-        bookTable.deleteRow(row.rowIndex);
+        row.remove();
         deleteFromLocalStorage(row);
     }
 });
@@ -110,7 +106,6 @@ bookTable.addEventListener('click', function(event) {
 // Populate the form with data from a selected row
 function populateFormWithRowData(row) {
     const cells          = row.cells;
-
     titleInput.value     = cells[0].textContent;
     authorInput.value    = cells[1].textContent;
     pagesInput.value     = cells[2].textContent;
@@ -131,22 +126,17 @@ function saveToLocalStorage(book) {
     const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
     existingBooks.push(book);
     localStorage.setItem('books', JSON.stringify(existingBooks));
-
     updateCounts();
 }
 
 // Function to update local storage after editing a book
 function updateLocalStorage() {
-    const rows = Array.from(bookTable.rows).slice(1);
-    const updatedBooks = rows.map(row => {
-
-        return {
-            title:  row.cells[0].textContent,
-            author: row.cells[1].textContent,
-            pages:  row.cells[2].textContent,
-            read:   row.cells[3].textContent
-        };
-    });
+    const updatedBooks = Array.from(bookTable.rows).slice(1).map(row => ({
+        title: row.cells[0].textContent,
+        author: row.cells[1].textContent,
+        pages: row.cells[2].textContent,
+        read: row.cells[3].textContent
+    }));
 
     localStorage.setItem('books', JSON.stringify(updatedBooks));
     updateCounts();
@@ -157,148 +147,69 @@ function deleteFromLocalStorage(row) {
     const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
     const rowIndex = row.rowIndex - 1;
     existingBooks.splice(rowIndex, 1);
-
     localStorage.setItem('books', JSON.stringify(existingBooks));
     updateCounts();
 }
 
 // Function to recalculate and update book counts
 function updateCounts() {
-    totalBooksCount = bookTable.rows.length - 1;
-    booksReadCount = Array.from(bookTable.rows).slice(1).filter(row => row.cells[3].textContent === 'Read').length;
+    const rows = Array.from(bookTable.rows).slice(1);
+    totalBooksCount = rows.length;
+    booksReadCount = rows.filter(row => row.cells[3].textContent === 'Read').length;
     booksNotReadCount = totalBooksCount - booksReadCount;
 
+    // Update the HTML elements displaying the counts
     document.querySelector('.cards .number').textContent       = totalBooksCount;
     document.querySelectorAll('.cards .number')[1].textContent = booksReadCount;
     document.querySelectorAll('.cards .number')[2].textContent = booksNotReadCount;
 }
 
-
 // Load data from local storage when the page loads
-function loadBooksFromLocalStorage() {
+function loadAndPopulateBooks() {
     const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
-   
-    while (bookTable.rows.length > 1) {
-        bookTable.deleteRow(1);
+      
+    if (isSorted) {
+        existingBooks.sort((bookA, bookB) => bookA.title.localeCompare(bookB.title));
     }
-    existingBooks.sort((bookA, bookB) => {
-        const titleA = bookA.title.toLowerCase();
-        const titleB = bookB.title.toLowerCase();
-        return titleA.localeCompare(titleB);
-    });
-    existingBooks.forEach(book => {
-        const newRow      = bookTable.insertRow();
-        const titleCell   = newRow.insertCell(0);
-        const authorCell  = newRow.insertCell(1);
-        const pagesCell   = newRow.insertCell(2);
-        const statusCell  = newRow.insertCell(3);
-        const actionsCell = newRow.insertCell(4);
-
-        titleCell.textContent  = book.title;
-        authorCell.textContent = book.author;
-        pagesCell.textContent  = book.pages;
-        statusCell.textContent = book.read;
-        actionsCell.innerHTML  = '<button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button>';
-    });
+    
+    populateTable(existingBooks);
+    updateCounts();
 }
 
-// Load data from local storage when the page loads
-loadBooksFromLocalStorage();
-// Populate the table based on the initial sorting state
-populateTable();
+// Load and populate books from local storage when the page loads
+loadAndPopulateBooks();
 
 // Event listener for the "Sort" button
 sortBooks.addEventListener('click', function() {
     toggleSort();
-    populateTable();
+    loadAndPopulateBooks();
 });
 
 // Function to toggle sorting state
 function toggleSort() {
-    isSorted = !isSorted; 
+    isSorted = !isSorted;
     localStorage.setItem('isSorted', JSON.stringify(isSorted));
+    loadAndPopulateBooks();
 }
 
-// Function to load and sort data from local storage
-function loadAndSortData() {
-    const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
-   
-    existingBooks.sort((bookA, bookB) => {
-        const titleA = bookA.title.toLowerCase();
-        const titleB = bookB.title.toLowerCase();
-        return titleA.localeCompare(titleB);
-    });
-}
-
-function loadBooksFromLocalStorage() {
-    const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
-   
+// Function to populate table with data
+function populateTable(data) {
     while (bookTable.rows.length > 1) {
         bookTable.deleteRow(1);
     }
-    existingBooks.sort((bookA, bookB) => {
-        const titleA = bookA.title.toLowerCase();
-        const titleB = bookB.title.toLowerCase();
-        return titleA.localeCompare(titleB);
-    });
-    existingBooks.forEach(book => {
-        const newRow      = bookTable.insertRow();
-        const titleCell   = newRow.insertCell(0);
-        const authorCell  = newRow.insertCell(1);
-        const pagesCell   = newRow.insertCell(2);
-        const statusCell  = newRow.insertCell(3);
-        const actionsCell = newRow.insertCell(4);
 
-        titleCell.textContent  = book.title;
-        authorCell.textContent = book.author;
-        pagesCell.textContent  = book.pages;
-        statusCell.textContent = book.read;
-        actionsCell.innerHTML  = '<button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button>';
-    });
-
-    // Check whether to display pagination controls
-    const totalNumPages = Math.ceil(existingBooks.length / itemsPerPage);
-    const pagination = document.getElementById('pagination');
-    if (totalNumPages > 1) {
-        pagination.style.display = 'flex'; // Show pagination controls
-    } else {
-        pagination.style.display = 'none'; // Hide pagination controls
+    if (isSorted) {
+        data.sort((bookA, bookB) => bookA.title.localeCompare(bookB.title));
     }
-}
 
-// Initialize the counts and display them
-updateCounts();
-
-populateTable(currentPage);
-
-// Event listener for the "Next" button
-document.getElementById('next-btn').addEventListener('click', function () {
-    if (currentPage < Math.ceil(totalBooksCount / itemsPerPage)) {
-        currentPage++;
-        populateTable(currentPage);
-    }
-});
-
-// Event listener for the "Previous" button
-document.getElementById('prev-btn').addEventListener('click', function () {
-    if (currentPage > 1) {
-        currentPage--;
-        populateTable(currentPage);
-    }
-});
-
-// Sort the book list alphabetically by title
-function sortBooksAlphabetically() {
-    const rows       = Array.from(bookTable.rows).slice(1); 
-    const sortedRows = rows.sort((rowA, rowB) => {
-        const titleA = rowA.cells[0].textContent.toLowerCase();
-        const titleB = rowB.cells[0].textContent.toLowerCase();
-        return titleA.localeCompare(titleB);
-    });
-    while (bookTable.rows.length > 1) {
-        bookTable.deleteRow(1);
-    }
-    sortedRows.forEach(row => {
-        bookTable.appendChild(row);
+    data.forEach(book => {
+        const newRow = bookTable.insertRow();
+        newRow.innerHTML = `
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.pages}</td>
+            <td>${book.read}</td>
+            <td><button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button></td>
+        `;
     });
 }
