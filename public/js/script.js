@@ -20,6 +20,7 @@ const authorInput    = document.getElementById('author');
 const pagesInput     = document.getElementById('pages');
 const statusSelected = document.getElementById('status');
 const bookTable      = document.getElementById('book-table');
+const searchInput    = document.getElementById('search');
  
 // State variables
 let editedRowIndex = -1;
@@ -98,8 +99,11 @@ bookTable.addEventListener('click', function(event) {
         editedRowIndex = row.rowIndex;
         populateFormWithRowData(row);
     } else if (target.classList.contains('remove-btn')) {
+        searchInput.value = "";
+        performSearch('');
         row.remove();
         deleteFromLocalStorage(row);
+        localStorage.setItem('searchTerm', '');
     }
 });
 
@@ -145,10 +149,24 @@ function updateLocalStorage() {
 // Function to delete a book from local storage
 function deleteFromLocalStorage(row) {
     const existingBooks = JSON.parse(localStorage.getItem('books')) || [];
-    const rowIndex = row.rowIndex - 1;
-    existingBooks.splice(rowIndex, 1);
-    localStorage.setItem('books', JSON.stringify(existingBooks));
+    const title = row.cells[0].textContent;
+    const author = row.cells[1].textContent;
+    const read = row.cells[3].textContent;
+
+    const indexToDelete = existingBooks.findIndex(book => (
+        book.title === title &&
+        book.author === author &&
+        book.read === read
+    ));
+    
+    if (indexToDelete !== -1) {
+        existingBooks.splice(indexToDelete, 1);
+        localStorage.setItem('books', JSON.stringify(existingBooks));
+    }
+    
+    localStorage.setItem('searchTerm', '');
     updateCounts();
+    performSearch('');
 }
 
 // Function to recalculate and update book counts
@@ -172,8 +190,27 @@ function loadAndPopulateBooks() {
         existingBooks.sort((bookA, bookB) => bookA.title.localeCompare(bookB.title));
     }
     
-    populateTable(existingBooks);
+     // Get the stored search term
+     const searchTerm = localStorage.getItem('searchTerm') || '';
+
+     // Filter the books based on the search term
+     const filteredBooks = existingBooks.filter(book => {
+         const title = book.title.toLowerCase();
+         const author = book.author.toLowerCase();
+         const pages = book.pages.toLowerCase();
+         const status = book.read.toLowerCase();
+ 
+         return (
+             title.includes(searchTerm) ||
+             author.includes(searchTerm) ||
+             pages.includes(searchTerm) ||
+             status.includes(searchTerm)
+         );
+     });
+ 
+    populateTable(filteredBooks);
     updateCounts();
+    initializeSearchFilter();
 }
 
 // Load and populate books from local storage when the page loads
@@ -198,10 +235,6 @@ function populateTable(data) {
         bookTable.deleteRow(1);
     }
 
-    if (isSorted) {
-        data.sort((bookA, bookB) => bookA.title.localeCompare(bookB.title));
-    }
-
     data.forEach(book => {
         const newRow = bookTable.insertRow();
         newRow.innerHTML = `
@@ -212,4 +245,44 @@ function populateTable(data) {
             <td><button class="edit-btn">Edit</button> <button class="remove-btn">Delete</button></td>
         `;
     });
+}
+
+searchInput.addEventListener('input', function () {
+    const searchTerm = searchInput.value.toLowerCase();
+    performSearch(searchTerm);
+    localStorage.setItem('searchTerm', searchTerm);
+  });
+  
+  searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); 
+      const searchTerm = searchInput.value.toLowerCase();
+      performSearch(searchTerm);
+      localStorage.setItem('searchTerm', searchTerm);
+    }
+  });
+
+// Function to load and initialize the search filter
+function initializeSearchFilter() {
+    const storedSearchTerm = localStorage.getItem('searchTerm');
+    if (storedSearchTerm) {
+        searchInput.value = storedSearchTerm;
+        performSearch(storedSearchTerm);
+    }
+}
+function performSearch(searchTerm) {
+    const storedSearchTerm = localStorage.getItem('searchTerm') || '';
+    searchTerm = searchTerm || storedSearchTerm;
+
+    const rows = Array.from(bookTable.rows).slice(1);
+    rows.forEach((row) => {
+        const shouldShow = Array.from(row.cells)
+            .map(cell => cell.textContent.toLowerCase())
+            .some(text => text.includes(searchTerm));
+        row.style.display = shouldShow ? 'table-row' : 'none';
+    });
+
+    if (!searchTerm) {
+        loadAndPopulateBooks();
+    }
 }
