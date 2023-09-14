@@ -695,6 +695,10 @@ input{
   display: table;
 }
 
+.table-row{
+  display: table-row;
+}
+
 .grid{
   display: grid;
 }
@@ -729,14 +733,6 @@ input{
 
 .w-full{
   width: 100%;
-}
-
-.w-11{
-  width: 2.75rem;
-}
-
-.w-28{
-  width: 7rem;
 }
 
 .flex-1{

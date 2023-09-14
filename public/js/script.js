@@ -190,23 +190,21 @@ function loadAndPopulateBooks() {
         existingBooks.sort((bookA, bookB) => bookA.title.localeCompare(bookB.title));
     }
     
-     // Get the stored search term
-     const searchTerm = localStorage.getItem('searchTerm') || '';
+    const searchTerm = localStorage.getItem('searchTerm') || '';
 
-     // Filter the books based on the search term
-     const filteredBooks = existingBooks.filter(book => {
-         const title = book.title.toLowerCase();
-         const author = book.author.toLowerCase();
-         const pages = book.pages.toLowerCase();
-         const status = book.read.toLowerCase();
+    const filteredBooks = existingBooks.filter(book => {
+        const title = book.title.toLowerCase();
+        const author = book.author.toLowerCase();
+        const pages = book.pages.toLowerCase();
+        const status = book.read.toLowerCase();
  
-         return (
-             title.includes(searchTerm) ||
-             author.includes(searchTerm) ||
-             pages.includes(searchTerm) ||
-             status.includes(searchTerm)
-         );
-     });
+        return (
+            title.includes(searchTerm) ||
+            author.includes(searchTerm) ||
+             ages.includes(searchTerm) ||
+            status.includes(searchTerm)
+        );
+    });
  
     populateTable(filteredBooks);
     updateCounts();
@@ -247,20 +245,22 @@ function populateTable(data) {
     });
 }
 
+// Event listener for the input event
 searchInput.addEventListener('input', function () {
     const searchTerm = searchInput.value.toLowerCase();
     performSearch(searchTerm);
     localStorage.setItem('searchTerm', searchTerm);
-  });
-  
-  searchInput.addEventListener('keydown', function (event) {
+});
+
+// Event listener for the keydown event
+searchInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
       event.preventDefault(); 
       const searchTerm = searchInput.value.toLowerCase();
       performSearch(searchTerm);
       localStorage.setItem('searchTerm', searchTerm);
     }
-  });
+});
 
 // Function to load and initialize the search filter
 function initializeSearchFilter() {
@@ -270,6 +270,8 @@ function initializeSearchFilter() {
         performSearch(storedSearchTerm);
     }
 }
+
+// Function to perform a search
 function performSearch(searchTerm) {
     const storedSearchTerm = localStorage.getItem('searchTerm') || '';
     searchTerm = searchTerm || storedSearchTerm;
